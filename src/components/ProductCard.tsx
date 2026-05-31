@@ -1,12 +1,14 @@
 import type { Product } from "../types/product";
 
-type ProductCardProps = Pick<Product, "name" | "price">;
+type ProductCardProps = {
+  product: Product;
+};
 
-const ProductCard = ({ name, price }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div>
-      <h1>{name}</h1>
-      <h3>{price}</h3>
+      <h1>{product.name}</h1>
+      <h3>{product.price}</h3>
     </div>
   );
 };

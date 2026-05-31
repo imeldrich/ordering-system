@@ -7,7 +7,7 @@ const Header = () => {
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
         <img src={logo} alt="hamburger logo" className="h-10" />
-        <h1 className="text-[#FF6B00] text-xl font-bold">Yummy</h1>
+        <h1 className="text-primary text-xl font-bold">Yummy</h1>
       </div>
       <div className="relative w-full max-w-md">
         <input
@@ -21,7 +21,7 @@ const Header = () => {
       <div className="flex items-center gap-2 cursor-pointer">
         <div className="relative">
           <BsCart3 className="text-2xl mr-4" />
-          <span className="absolute -top-2 right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+          <span className="absolute -top-2 right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
             3
           </span>
         </div>
