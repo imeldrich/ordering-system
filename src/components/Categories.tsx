@@ -3,7 +3,7 @@ import type { Category } from "../types/category";
 
 const Categories = () => {
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-5">
       {categories.map((category: Category) => {
         const Icon = category.icon;
         return (
