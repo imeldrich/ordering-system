@@ -1,4 +1,4 @@
-import type { Category } from "../types/category";
+import type { Category } from "../types/types";
 import { TfiLayoutGrid2 } from "react-icons/tfi";
 import { PiHamburger } from "react-icons/pi";
 import { RiDrinks2Line } from "react-icons/ri";
