@@ -2,7 +2,12 @@ import logo from "../assets/logo.png";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 
-const Header = () => {
+type HeaderProps = {
+  search: string;
+  setSearch: (value: string) => void;
+};
+
+const Header = ({ search, setSearch }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
@@ -12,8 +17,10 @@ const Header = () => {
       <div className="relative w-full max-w-md">
         <input
           type="text"
-          placeholder="Search for food or drinks..."
           className="w-full h-10 bg-white pl-3 pr-10 rounded-md border border-gray-200 outline-none focus:ring-2 focus:ring-orange-400"
+          placeholder="Search for food or drinks..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
 
         <FaSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer" />

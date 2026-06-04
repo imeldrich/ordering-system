@@ -10,17 +10,23 @@ const App = () => {
   const [selectedCategory, setSelectedCategory] =
     useState<Category["name"]>("All");
 
-  const filteredProducts: Product[] =
-    selectedCategory === "All"
-      ? products
-      : products.filter(
-          (product: Product) => product.category === selectedCategory,
-        );
+  const [search, setSearch] = useState<string>("");
+
+  const filteredProducts: Product[] = products.filter((product: Product) => {
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory;
+
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="space-y-3 select-none">
       <div className="border-b border-gray-300">
-        <Header />
+        <Header search={search} setSearch={setSearch} />
       </div>
       <div className="grid grid-cols-[160px_1fr] gap-4">
         <Categories
@@ -29,12 +35,18 @@ const App = () => {
         />
         <div className="grid grid-cols-4 gap-5 p-4">
           <div className="col-span-full">
-            <h3 className="font-bold">All Menu</h3>
+            <h3 className="font-bold text-lg">All Menu</h3>
             <p>Delicious food for you</p>
           </div>
-          {filteredProducts.map((product: Product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })}
+          {filteredProducts.length ? (
+            filteredProducts.map((product: Product) => {
+              return <ProductCard key={product.id} product={product} />;
+            })
+          ) : (
+            <div className="col-span-full flex items-center justify-center">
+              <p className="text-lg text-gray-600">Product not found...</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
