@@ -13,4 +13,9 @@ type Product = {
   category: Category["name"];
 };
 
-export type { Category, Product };
+type OrderItem = {
+  product: Product
+  quantity: number
+}
+
+export type { Category, Product, OrderItem };

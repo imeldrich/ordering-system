@@ -2,7 +2,7 @@ import ProductCard from "./components/ProductCard";
 import Header from "./components/Header";
 import Categories from "./components/Categories";
 import { products } from "./data/products";
-import type { Product, Category } from "./types/types";
+import type { Product, Category, OrderItem } from "./types/types";
 import { useState } from "react";
 import "./App.css";
 
@@ -11,6 +11,8 @@ const App = () => {
     useState<Category["name"]>("All");
 
   const [search, setSearch] = useState<string>("");
+  const [order, setOrder] = useState<OrderItem[]>([]);
+
 
   const filteredProducts: Product[] = products.filter((product: Product) => {
     const matchesCategory =
@@ -26,7 +28,7 @@ const App = () => {
   return (
     <div className="space-y-3 select-none">
       <div className="border-b border-gray-300">
-        <Header search={search} setSearch={setSearch} />
+        <Header search={search} setSearch={setSearch} order={order}/>
       </div>
       <div className="grid grid-cols-[160px_1fr] gap-4">
         <Categories
@@ -40,7 +42,7 @@ const App = () => {
           </div>
           {filteredProducts.length ? (
             filteredProducts.map((product: Product) => {
-              return <ProductCard key={product.id} product={product} />;
+              return <ProductCard key={product.id} product={product} setOrder={setOrder}/>;
             })
           ) : (
             <div className="col-span-full flex items-center justify-center">

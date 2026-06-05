@@ -1,13 +1,15 @@
 import logo from "../assets/logo.png";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
+import type { OrderItem } from "../types/types";
 
 type HeaderProps = {
   search: string;
   setSearch: (value: string) => void;
+  order: OrderItem[];
 };
 
-const Header = ({ search, setSearch }: HeaderProps) => {
+const Header = ({ search, setSearch, order }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
@@ -29,7 +31,7 @@ const Header = ({ search, setSearch }: HeaderProps) => {
         <div className="relative">
           <BsCart3 className="text-2xl mr-4" />
           <span className="absolute -top-2 right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-            3
+            {order.length}
           </span>
         </div>
         <FaUserCircle className="text-2xl" />
