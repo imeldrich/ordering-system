@@ -1,25 +1,56 @@
 import type { Product, OrderItem } from "../types/types";
+import { toast } from "react-toastify";
 
 type ProductCardProps = {
   product: Product;
+  order: OrderItem[];
   setOrder: React.Dispatch<React.SetStateAction<OrderItem[]>>;
 };
 
-const ProductCard = ({ product, setOrder }: ProductCardProps) => {
+const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
   const handleOrder = () => {
-    setOrder((prevOrder: OrderItem[]) => {
-      const existingOrder = prevOrder.find(
-        (order) => order.product.id === product.id,
-      );
+    const existingOrder = order.find(
+      (item: OrderItem) => item.product.id === product.id,
+    );
 
-      if (existingOrder) {
-        return prevOrder.map((order) =>
+    if (existingOrder) {
+      setOrder((prevOrder: OrderItem[]) =>
+        prevOrder.map((order: OrderItem) =>
           order.product.id === product.id
             ? { ...order, quantity: order.quantity + 1 }
             : order,
-        );
-      }
-      return [...prevOrder, { product, quantity: 1 }];
+        ),
+      );
+      toast.info("This item is already in your cart", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          width: "500px",
+        },
+      });
+      return;
+    }
+
+    setOrder((prevOrder: OrderItem[]) => [
+      ...prevOrder,
+      { product, quantity: 1 },
+    ]);
+    toast.success("Item added to cart", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+      style: {
+        width: "500px",
+      },
     });
   };
 

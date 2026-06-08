@@ -4,6 +4,8 @@ import Categories from "./components/Categories";
 import { products } from "./data/products";
 import type { Product, Category, OrderItem } from "./types/types";
 import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 const App = () => {
@@ -54,6 +56,7 @@ const App = () => {
                 <ProductCard
                   key={product.id}
                   product={product}
+                  order={order}
                   setOrder={setOrder}
                 />
               );
@@ -65,6 +68,7 @@ const App = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
