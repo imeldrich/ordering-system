@@ -61,16 +61,16 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
         src={product.image}
         alt={product.name}
       />
-      <div className=" p-5 flex justify-between items-center">
+      <div className="p-5 flex flex-col space-y-3">
         <div>
-          <h3 className="text-lg font-semibold">{product.name}</h3>
-          <p className="text-gray-700 font-medium">₱{product.price}</p>
+          <h3 className="text-xl font-semibold">{product.name}</h3>
+          <p className="text-lg text-primary font-medium tracking-wider">₱{product.price}.00</p>
         </div>
         <button
           onClick={handleOrder}
-          className="bg-primary px-5 py-3 shadow-md rounded-md text-white font-bold cursor-pointer"
+          className="bg-primary px-5 py-3 shadow-md rounded-lg text-white font-bold cursor-pointer"
         >
-          Buy
+          Add to Cart
         </button>
       </div>
     </div>

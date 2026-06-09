@@ -36,19 +36,22 @@ const App = () => {
   }, [search, selectedCategory]);
 
   return (
-    <div className="space-y-3 select-none">
+    <div className="select-none">
       <div className="border-b border-gray-300">
         <Header search={search} setSearch={setSearch} order={order} />
       </div>
-      <div className="grid grid-cols-[160px_1fr] gap-4">
-        <Categories
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <div className="grid grid-cols-4 gap-5 p-4">
+      <div className="grid grid-cols-[220px_1fr] h-screen">
+        <div className="space-y-2 p-3 border-r border-gray-300">
+          <p className="text-md text-neutral-400 font-semibold">CATEGORIES</p>
+          <Categories
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+        </div>
+        <div className="grid grid-cols-4 gap-5 p-4 self-start">
           <div className="col-span-full">
-            <h3 className="font-bold text-lg">All Menu</h3>
-            <p>Delicious food for you</p>
+            <h3 className="font-bold text-2xl">All Menu</h3>
+            <p className="text-lg">Delicious food for you</p>
           </div>
           {product.length ? (
             product.map((product: Product) => {
@@ -63,7 +66,7 @@ const App = () => {
             })
           ) : (
             <div className="col-span-full flex items-center justify-center">
-              <p className="text-lg text-gray-600">Product not found...</p>
+              <p className="text-lg text-neutral-400">Product not found...</p>
             </div>
           )}
         </div>

@@ -14,11 +14,12 @@ const Header = ({ search, setSearch, order }: HeaderProps) => {
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
         <img src={logo} alt="hamburger logo" className="h-10" />
-        <h1 className="text-primary text-xl font-bold">Yummy</h1>
+        <h1 className="text-primary text-2xl font-bold">Yummy</h1>
       </div>
       <div className="relative w-full max-w-md">
         <input
           type="text"
+          name="search"
           className="w-full h-10 bg-white pl-3 pr-10 rounded-md border border-gray-200 outline-none focus:ring-2 focus:ring-orange-400"
           placeholder="Search for food or drinks..."
           value={search}
@@ -35,7 +36,7 @@ const Header = ({ search, setSearch, order }: HeaderProps) => {
           </span>
         </div>
         <FaUserCircle className="text-2xl" />
-        <select>
+        <select name="user">
           <option>John Doe</option>
         </select>
       </div>
