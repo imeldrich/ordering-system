@@ -7,9 +7,10 @@ type HeaderProps = {
   search: string;
   setSearch: (value: string) => void;
   order: OrderItem[];
+  setIsOpen: (value: boolean) => void;
 };
 
-const Header = ({ search, setSearch, order }: HeaderProps) => {
+const Header = ({ search, setSearch, order, setIsOpen }: HeaderProps) => {
   return (
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
@@ -29,7 +30,7 @@ const Header = ({ search, setSearch, order }: HeaderProps) => {
         <FaSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer" />
       </div>
       <div className="flex items-center gap-2 cursor-pointer">
-        <div className="relative">
+        <div className="relative" onClick={() => setIsOpen(true)}>
           <BsCart3 className="text-2xl mr-4" />
           <span className="absolute -top-2 right-1 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
             {order.length}

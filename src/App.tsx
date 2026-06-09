@@ -1,6 +1,7 @@
 import ProductCard from "./components/ProductCard";
 import Header from "./components/Header";
 import Categories from "./components/Categories";
+import Cart from "./components/Cart";
 import { products } from "./data/products";
 import type { Product, Category, OrderItem } from "./types/types";
 import { useState, useEffect } from "react";
@@ -15,6 +16,7 @@ const App = () => {
   const [search, setSearch] = useState<string>("");
   const [order, setOrder] = useState<OrderItem[]>([]);
   const [product, setProduct] = useState<Product[]>(products);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,7 +40,12 @@ const App = () => {
   return (
     <div className="select-none">
       <div className="border-b border-gray-300">
-        <Header search={search} setSearch={setSearch} order={order} />
+        <Header
+          search={search}
+          setSearch={setSearch}
+          order={order}
+          setIsOpen={setIsOpen}
+        />
       </div>
       <div className="grid grid-cols-[220px_1fr] h-screen">
         <div className="space-y-2 p-3 border-r border-gray-300">
@@ -71,6 +78,13 @@ const App = () => {
           )}
         </div>
       </div>
+        <Cart isOpen={isOpen} setIsOpen={setIsOpen} order={order} />
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 bg-black/50 z-40"
+        />
+      )}
       <ToastContainer />
     </div>
   );
