@@ -78,7 +78,7 @@ const App = () => {
           )}
         </div>
       </div>
-        <Cart isOpen={isOpen} setIsOpen={setIsOpen} order={order} />
+        <Cart isOpen={isOpen} setIsOpen={setIsOpen} order={order} setOrder={setOrder}/>
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}

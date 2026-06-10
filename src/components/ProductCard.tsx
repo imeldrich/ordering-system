@@ -22,8 +22,8 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
         ),
       );
       toast.info("This item is already in your cart", {
-        position: "top-center",
-        autoClose: 2000,
+        position: "top-right",
+        autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
@@ -41,8 +41,8 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
       { product, quantity: 1 },
     ]);
     toast.success("Item added to cart", {
-      position: "top-center",
-      autoClose: 2000,
+      position: "top-right",
+      autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -55,7 +55,7 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-white w-full max-w-xs rounded-2xl shadow-md overflow-hidden space-y-2 hover:scale-105 transition-transform duration-200 ease-in-out">
+    <div className="bg-white w-full max-w-xs rounded-2xl shadow-md overflow-hidden space-y-2 hover:scale-98 transition-transform duration-200 ease-in-out">
       <img
         className="w-full h-48 object-cover"
         src={product.image}
@@ -64,11 +64,13 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
       <div className="p-5 flex flex-col space-y-3">
         <div>
           <h3 className="text-xl font-semibold">{product.name}</h3>
-          <p className="text-lg text-primary font-medium tracking-wider">₱{product.price}.00</p>
+          <p className="text-lg text-primary font-medium tracking-wider">
+            ₱{product.price}.00
+          </p>
         </div>
         <button
           onClick={handleOrder}
-          className="bg-primary px-5 py-3 shadow-md rounded-lg text-white font-bold cursor-pointer"
+          className="bg-primary hover:bg-orange-400 px-5 py-3 shadow-md rounded-2xl text-white font-bold cursor-pointer active:scale-98 transition-transform"
         >
           Add to Cart
         </button>
