@@ -26,7 +26,6 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
         autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
-        draggable: true,
         theme: "colored",
         style: {
           width: "500px",
@@ -44,7 +43,6 @@ const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
       autoClose: 1500,
       hideProgressBar: true,
       closeOnClick: true,
-      draggable: true,
       theme: "colored",
       style: {
         width: "500px",
