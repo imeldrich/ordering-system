@@ -12,16 +12,16 @@ import "./App.css";
 const App = () => {
   const [selectedCategory, setSelectedCategory] =
     useState<Category["name"]>("All");
-
   const [search, setSearch] = useState<string>("");
   const [order, setOrder] = useState<OrderItem[]>([]);
   const [product, setProduct] = useState<Product[]>(products);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<string>("default");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setProduct(
-        products.filter((product: Product) => {
+      const filteredProducts: Product[] = products.filter(
+        (product: Product) => {
           const matchesCategory =
             selectedCategory === "All" || product.category === selectedCategory;
 
@@ -30,12 +30,19 @@ const App = () => {
             .includes(search.toLowerCase());
 
           return matchesCategory && matchesSearch;
-        }),
+        },
       );
+
+      if (sortBy === "lowToHigh") {
+        filteredProducts.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "highToLow") {
+        filteredProducts.sort((a, b) => b.price - a.price);
+      }
+      setProduct(filteredProducts);
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [search, selectedCategory]);
+  }, [search, selectedCategory, sortBy]);
 
   return (
     <div className="select-none">
@@ -56,9 +63,23 @@ const App = () => {
           />
         </div>
         <div className="grid grid-cols-4 gap-5 p-4 self-start">
-          <div className="col-span-full">
-            <h3 className="font-bold text-2xl">All Menu</h3>
-            <p className="text-lg">Delicious food for you</p>
+          <div className="col-span-full flex items-center justify-between px-2">
+            <div>
+              <h3 className="font-bold text-2xl">All Menu</h3>
+              <p className="text-lg">Delicious food for you</p>
+            </div>
+            <div className="space-x-2">
+              <label htmlFor="sort" className="font-semibold">Price:</label>
+              <select
+                id="sort"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="default">Default</option>
+                <option value="lowToHigh">Low to High</option>
+                <option value="highToLow">High to Low</option>
+              </select>
+            </div>
           </div>
           {product.length ? (
             product.map((product: Product) => {
@@ -78,7 +99,12 @@ const App = () => {
           )}
         </div>
       </div>
-        <Cart isOpen={isOpen} setIsOpen={setIsOpen} order={order} setOrder={setOrder}/>
+      <Cart
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        order={order}
+        setOrder={setOrder}
+      />
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
