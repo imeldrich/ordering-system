@@ -55,7 +55,12 @@ const Cart = ({ isOpen, setIsOpen, order, setOrder }: CartProps) => {
             <p className="text-lg font-semibold text-neutral-400">
               Your Cart is Empty
             </p>
-            <button  onClick={() => setIsOpen(false)} className="bg-primary hover:bg-orange-400 px-14 py-3 shadow-md rounded-2xl text-lg text-white font-bold cursor-pointer active:scale-98 transition-transform tracking-wide">Start Ordering</button>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="bg-primary hover:bg-orange-400 px-14 py-3 shadow-md rounded-2xl text-lg text-white font-bold cursor-pointer active:scale-98 transition-transform tracking-wide"
+            >
+              Start Ordering
+            </button>
           </div>
         )}
       </div>

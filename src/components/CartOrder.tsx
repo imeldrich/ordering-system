@@ -1,5 +1,6 @@
 import type { OrderItem } from "../types/types";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useConfirmToast } from "../hooks/useConfirmToast";
 
 type CartOrderProps = {
   order: OrderItem[];
@@ -7,11 +8,16 @@ type CartOrderProps = {
 };
 
 const CartOrder = ({ order, setOrder }: CartOrderProps) => {
+  const { confirm } = useConfirmToast();
+  
   const handleDelete = (itemId: number) => {
-    const filteredOrder = order.filter(
-      (item: OrderItem) => item.product.id !== itemId,
-    );
-    setOrder(filteredOrder);
+    confirm("Remove this item?", () => {
+      setOrder((prevOrder: OrderItem[]) => {
+        return prevOrder.filter(
+          (item: OrderItem) => item.product.id !== itemId,
+        );
+      });
+    });
   };
 
   const incrementQuantity = (itemId: number) => {
