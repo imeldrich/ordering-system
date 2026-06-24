@@ -2,21 +2,41 @@ import ProductCard from "./components/ProductCard";
 import Header from "./components/Header";
 import Categories from "./components/Categories";
 import Cart from "./components/Cart";
-import { products } from "./data/products";
 import type { Product, Category, OrderItem } from "./types/types";
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import "./App.css"
 
 const App = () => {
   const [selectedCategory, setSelectedCategory] =
     useState<Category["name"]>("All");
   const [search, setSearch] = useState<string>("");
   const [order, setOrder] = useState<OrderItem[]>([]);
-  const [product, setProduct] = useState<Product[]>(products);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [displayProducts, setDisplayProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>("default");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/products");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        setProducts(data);
+        setDisplayProducts(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,11 +58,11 @@ const App = () => {
       } else if (sortBy === "highToLow") {
         filteredProducts.sort((a, b) => b.price - a.price);
       }
-      setProduct(filteredProducts);
+      setDisplayProducts(filteredProducts);
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [search, selectedCategory, sortBy]);
+  }, [search, selectedCategory, sortBy, products]);
 
   return (
     <div className="select-none">
@@ -69,7 +89,9 @@ const App = () => {
               <p className="text-lg">Delicious food for you</p>
             </div>
             <div className="space-x-2">
-              <label htmlFor="sort" className="font-semibold">Price:</label>
+              <label htmlFor="sort" className="font-semibold">
+                Price:
+              </label>
               <select
                 id="sort"
                 value={sortBy}
@@ -81,17 +103,19 @@ const App = () => {
               </select>
             </div>
           </div>
-          {product.length ? (
-            product.map((product: Product) => {
-              return (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  order={order}
-                  setOrder={setOrder}
-                />
-              );
-            })
+          {loading ? (
+            <div className="col-span-full flex items-center justify-center">
+              <p className="text-lg text-neutral-400">Loading products...</p>
+            </div>
+          ) : displayProducts.length ? (
+            displayProducts.map((product: Product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                order={order}
+                setOrder={setOrder}
+              />
+            ))
           ) : (
             <div className="col-span-full flex items-center justify-center">
               <p className="text-lg text-neutral-400">Product not found...</p>
