@@ -10,20 +10,20 @@ type CartOrderProps = {
 const CartOrder = ({ order, setOrder }: CartOrderProps) => {
   const { confirm } = useConfirmToast();
   
-  const handleDelete = (itemId: number) => {
+  const handleDelete = (itemId: string) => {
     confirm("Remove this item?", () => {
       setOrder((prevOrder: OrderItem[]) => {
         return prevOrder.filter(
-          (item: OrderItem) => item.product.id !== itemId,
+          (item: OrderItem) => item.product._id !== itemId,
         );
       });
     });
   };
 
-  const incrementQuantity = (itemId: number) => {
+  const incrementQuantity = (itemId: string) => {
     setOrder((prevItem: OrderItem[]) => {
       return prevItem.map((item: OrderItem) => {
-        if (item.product.id === itemId) {
+        if (item.product._id === itemId) {
           return {
             ...item,
             quantity: item.quantity + 1,
@@ -35,11 +35,11 @@ const CartOrder = ({ order, setOrder }: CartOrderProps) => {
     });
   };
 
-  const decrementQuantity = (itemId: number) => {
+  const decrementQuantity = (itemId: string) => {
     setOrder((prevItem: OrderItem[]) => {
       return prevItem
         .map((item: OrderItem) => {
-          if (item.product.id === itemId) {
+          if (item.product._id === itemId) {
             return {
               ...item,
               quantity: item.quantity - 1,
@@ -57,7 +57,7 @@ const CartOrder = ({ order, setOrder }: CartOrderProps) => {
       {order.map((item: OrderItem) => {
         return (
           <div
-            key={item.product.id}
+            key={item.product._id}
             className="relative flex items-center p-5 border-b border-gray-300 mt-2"
           >
             <img
@@ -80,7 +80,7 @@ const CartOrder = ({ order, setOrder }: CartOrderProps) => {
                       : "cursor-pointer"
                   }`}
                   disabled={item.quantity === 1}
-                  onClick={() => decrementQuantity(item.product.id)}
+                  onClick={() => decrementQuantity(item.product._id)}
                 >
                   -
                 </button>
@@ -91,7 +91,7 @@ const CartOrder = ({ order, setOrder }: CartOrderProps) => {
 
                 <button
                   className="w-10 h-10 hover:bg-gray-50 transition-colors border-2 border-gray-200 text-lg rounded-lg cursor-pointer shadow-xs"
-                  onClick={() => incrementQuantity(item.product.id)}
+                  onClick={() => incrementQuantity(item.product._id)}
                 >
                   +
                 </button>
@@ -99,7 +99,7 @@ const CartOrder = ({ order, setOrder }: CartOrderProps) => {
             </div>
             <RiDeleteBin6Line
               className="absolute top-5 right-9 text-2xl cursor-pointer hover:text-red-600 transition-colors"
-              onClick={() => handleDelete(item.product.id)}
+              onClick={() => handleDelete(item.product._id)}
             />
           </div>
         );

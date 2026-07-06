@@ -10,13 +10,13 @@ type ProductCardProps = {
 const ProductCard = ({ product, order, setOrder }: ProductCardProps) => {
   const handleOrder = () => {
     const existingOrder = order.find(
-      (item: OrderItem) => item.product.id === product.id,
+      (item: OrderItem) => item.product._id === product._id,
     );
 
     if (existingOrder) {
       setOrder((prevOrder: OrderItem[]) =>
         prevOrder.map((order: OrderItem) =>
-          order.product.id === product.id
+          order.product._id === product._id
             ? { ...order, quantity: order.quantity + 1 }
             : order,
         ),

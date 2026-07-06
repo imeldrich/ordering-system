@@ -4,6 +4,7 @@ import Categories from "./components/Categories";
 import Cart from "./components/Cart";
 import type { Product, Category, OrderItem } from "./types/types";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -22,13 +23,10 @@ const App = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
+        const { data } = await axios.get<Product[]>(
           `${import.meta.env.VITE_API_URL}/api/products`,
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
+
         setProducts(data);
         setDisplayProducts(data);
       } catch (error) {
@@ -112,7 +110,7 @@ const App = () => {
           ) : displayProducts.length ? (
             displayProducts.map((product: Product) => (
               <ProductCard
-                key={product.id}
+                key={product._id}
                 product={product}
                 order={order}
                 setOrder={setOrder}

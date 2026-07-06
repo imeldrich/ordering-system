@@ -6,7 +6,7 @@ type Category = {
 };
 
 type Product = {
-  id: number;
+  _id: string
   name: string;
   price: number;
   image: string;
