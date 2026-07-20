@@ -13,7 +13,7 @@ const NotFound = () => {
         </p>
 
         <a
-          href="/orderingsystem"
+          href="/"
           className="inline-block mt-8 bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-200"
         >
           Back to Home
