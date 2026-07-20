@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
+import { Link } from "react-router";
 import type { OrderItem } from "../types/types";
 
 type HeaderProps = {
@@ -8,9 +9,18 @@ type HeaderProps = {
   setSearch: (value: string) => void;
   order: OrderItem[];
   setIsOpen: (value: boolean) => void;
+  login: boolean;
+  setLogin: (value: boolean) => void;
 };
 
-const Header = ({ search, setSearch, order, setIsOpen }: HeaderProps) => {
+const Header = ({
+  search,
+  setSearch,
+  order,
+  setIsOpen,
+  login,
+  setLogin,
+}: HeaderProps) => {
   return (
     <header className="flex items-center justify-between p-4">
       <div className="flex items-center gap-2.5">
@@ -36,10 +46,22 @@ const Header = ({ search, setSearch, order, setIsOpen }: HeaderProps) => {
             {order.length}
           </span>
         </div>
-        <FaUserCircle className="text-2xl" />
-        <select name="user">
-          <option>John Doe</option>
-        </select>
+
+        {login ? (
+          <button
+            onClick={() => setLogin(false)}
+            className="bg-primary text-white px-5 py-2 rounded-lg font-semibold"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="bg-primary text-white px-5 py-2 rounded-lg font-semibold"
+          >
+            Login
+          </Link>
+        )}
       </div>
     </header>
   );
